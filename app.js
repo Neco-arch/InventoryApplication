@@ -9,7 +9,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get('/', (req, res) => {
-    controller.TestID(req, res)
+    const result = controller.TestID(req, res)
+    console.log(result)
 })
 
 
