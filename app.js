@@ -9,8 +9,15 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get('/', (req, res) => {
-    const result = controller.TestID(req, res)
-    console.log(result)
+    res.render("mainpage_allproduct")
+})
+
+app.get('/Product:id' , (req,res) => {
+    // Do something
+})
+
+app.get('/SortData' , (req,res) => {
+    // Do something
 })
 
 
