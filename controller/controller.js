@@ -34,11 +34,21 @@ async function DeleteProduct(ItemID,Itemname) {
     return result
 }
 
-ay
+
+//Get All Data
+async function GetAllData() {
+    return await queries.GetAllData()
+}
+
+async function GetSortData(category , price , status) {
+    return await queries.SortData(category,price,status)
+}
 
 
 module.exports = {
     CreateProduct,
     EditProduct,
     DeleteProduct,
+    GetAllData,
+    GetSortData
 }

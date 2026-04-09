@@ -20,6 +20,10 @@ app.get('/SortData' , (req,res) => {
     // Do something
 })
 
+app.get('/AddProduct' , (req,res) => {
+    res.render("create_editdataform")
+})
+
 
 app.listen(3000, (req, res) => {
     console.log("Server lunched")
