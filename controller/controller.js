@@ -44,8 +44,19 @@ async function GetSortData(category , price , status) {
     return await queries.SortData(category,price,status)
 }
 
+//Get Data From Category
+
+async function GetCatData() {
+    const result = await queries.GetDataFromCategory()
+    return result
+}
+
+
+
+
 
 module.exports = {
+    GetCatData,
     CreateProduct,
     EditProduct,
     DeleteProduct,
