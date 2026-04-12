@@ -46,9 +46,10 @@ async function GetSortData(category , price , status) {
 
 //Get Data From Category
 
-async function GetCatData() {
-    const result = await queries.GetDataFromCategory()
-    return result
+async function GetCatData(res) {
+    let result = await queries.GetDataFromCategory()
+    console.log(result)
+    res.render("create_editdataform" , {category : result })
 }
 
 

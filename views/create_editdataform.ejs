@@ -10,7 +10,9 @@
         <label>ProductName : <input type="text" name="ProductName" /></label>
         <label>Description : <input type="text" name="Description" /></label>
         <label>Category : <select>
-
+            <% category.forEach((value, index) => { %>
+            <option><%= value %></option>
+            <% }) %>
         </select></label>
         <label>Price : <input type="number" name="Price" min="0"/></label>
         <label>Amount of Item : <input type="number" name="Quanity" min="0"/></label>

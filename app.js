@@ -2,6 +2,7 @@ const express = require('express');
 const path = require("path");
 const controller = require('./controller/controller.js')
 
+
 const app = express()
 
 app.set("view engine", "ejs");
@@ -12,16 +13,12 @@ app.get('/', (req, res) => {
     res.render("mainpage_allproduct")
 })
 
-app.get('/Product:id' , (req,res) => {
-    // Do something
+app.get('/product:id' , (req,res) => {
+   
 })
 
-app.get('/SortData' , (req,res) => {
-    // Do something
-})
-
-app.get('/AddProduct' , (req,res) => {
-    res.render("create_editdataform")
+app.get('/addproduct' , (req,res) => {
+    controller.GetCatData(res)
 })
 
 
