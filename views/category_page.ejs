@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pulse</title>
+</head>
+
+<body>
+    <div>
+        <% category.forEach((value, index)=> { %>
+            <div class="Category_Card">
+                <img src="/images.png">
+                <h2><%= value.category %></h2>
+            </div>
+            <% }) %>
+    </div>
+
+</body>
+
+</html>

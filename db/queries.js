@@ -88,16 +88,10 @@ async function DeleteData(id, itemname) {
 // Category Part 
 
 async function GetDataFromCategory() {
-  try {
     const querymessage = 'SELECT * FROM allcategory'
     const { rows } = await pool.query(querymessage)
-    return await rows
-  } catch(Error) {
-    return Error
-  }
+    return rows
 }
-
-GetDataFromCategory()
 
 module.exports = {
   InsertData,

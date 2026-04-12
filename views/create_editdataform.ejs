@@ -6,21 +6,22 @@
     <title>Urban Pulse</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="/addproducttodb" method="post">
         <label>ProductName : <input type="text" name="ProductName" /></label>
-        <label>Description : <input type="text" name="Description" /></label>
-        <label>Category : <select>
+        <label>Description : <textarea name="Description"></textarea></label>
+        <label>Category : <select name="Category">
             <% category.forEach((value, index) => { %>
-            <option><%= value %></option>
+            <option><%= value.category %></option>
             <% }) %>
         </select></label>
-        <label>Price : <input type="number" name="Price" min="0"/></label>
+        <label>Price : <input type="number" name="Price" step="any"></label>
         <label>Amount of Item : <input type="number" name="Quanity" min="0"/></label>
-        <label>Status : <select>
+        <label>Status : <select name="Product_status">
             <option value="In Stock">Avalible in stock</option>
             <option value="Out of Stock">Out of Stock</option>
             <option value="Off Sale">Off Sale</option>
         </select></label>
+        <input type="submit" placeholder="Add Product">
     </form>
 </body>
 </html>
