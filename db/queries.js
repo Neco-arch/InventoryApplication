@@ -29,11 +29,11 @@ async function GetAllData() {
   }
 }
 
-async function SortData(category, price, status) {
+async function filterData(category, price, status , id) {
   try {
     const { rows } = await pool.query(
-      "SELECT * FROM products WHERE category = ($1) OR price = ($2) OR status = ($3) ",
-      [category,price,status]
+      "SELECT * FROM products WHERE category = ($1) OR price = ($2) OR status = ($3) OR id = ($4) ",
+      [category,price,status,id]
     );
     return rows;
   } catch (err) {
@@ -93,10 +93,14 @@ async function GetDataFromCategory() {
     return rows
 }
 
+async function DeleteCategory() {
+  
+}
+
 module.exports = {
   InsertData,
   GetAllData,
-  SortData,
+  filterData,
   DeleteData,
   UpdateData,
   GetDataFromCategory,

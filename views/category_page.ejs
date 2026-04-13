@@ -9,11 +9,17 @@
 
 <body>
     <div>
+        <h1>Category Page</h1>
         <% category.forEach((value, index)=> { %>
-            <div class="Category_Card">
-                <img src="/images.png">
-                <h2><%= value.category %></h2>
-            </div>
+            <a href="/category/<%= value.category %>">
+                <div class="Category_Card">
+                    <img src="/images.png">
+                    <h2>
+                        <%= value.category %>
+                    </h2>
+                </div>
+            </a>
+
             <% }) %>
     </div>
 

@@ -14,11 +14,23 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get('/', (req, res) => {
+    res.redirect('/category')
+})
+
+app.get('/category', (req, res) => {
     controller.Rendermainpage(res)
 })
 
 app.get('/addproduct' , (req,res) => {
     controller.RenderAddProductPage(res)
+})
+
+app.get('/category/:category_type' , (req,res) => {
+    controller.RenderCategory(req,res)
+}) 
+
+app.post('/viewproduct' , (req,res) => {
+    controller.RenderProductAction(req,res)
 })
 
 app.post('/addproducttodb' , (req,res) => {
@@ -27,6 +39,6 @@ app.post('/addproducttodb' , (req,res) => {
 
 
 
-app.listen(3000, (req, res) => {
+app.listen(3000, () => {
     console.log("Server lunched")
 })
