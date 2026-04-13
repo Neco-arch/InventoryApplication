@@ -63,6 +63,8 @@ async function DeleteProduct(ItemID, Itemname) {
   return result;
 }
 
+//Delete Category
+
 
 
 //Add Product page
@@ -76,7 +78,7 @@ function RenderAddProductPage(res) {
 // Each Category Page
 function Rendermainpage(res) {
   queries.GetDataFromCategory().then((value) => {
-    res.render("category_page", { category: value });
+    res.render("category/category_page", { category: value });
   });
 }
 
@@ -99,22 +101,27 @@ async function AddProductviaForm(req, res) {
 async function RenderCategory(req,res) {
     const type = req.params.category_type
     const result = await queries.filterData(type) 
-    res.render("category_product" , {products : result })
+    res.render("category/category_product" , {products : result })
 }
 
-// Edit Product Page
+// Product Page Action page
 
 function RenderProductAction(req,res) {
   const Productid = req.body.productId
   queries.filterData(null,null,null,Productid).then((value) => {
-    res.render('productpage' , {product : value})
+    res.render('product/productpage' , {product : value})
   })
-
 }
+
+function RenderProductEdit(req,res) {
+  res.render("/Edit/editproduct" , {data : })
+}
+
+
 
 module.exports = {
   RenderProductAction,
-    RenderCategory,
+  RenderCategory,
   AddProductviaForm,
   Rendermainpage,
   RenderAddProductPage,
