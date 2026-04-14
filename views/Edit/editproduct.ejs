@@ -1,27 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Pulse</title>
 </head>
+
 <body>
     <form action="/editdata" method="post">
-        <label>ProductName : <input type="text" name="ProductName" /></label>
-        <label>Description : <textarea name="Description"></textarea></label>
-        <label>Category : <select name="Category">
-            <% category.forEach((value, index) => { %>
-            <option><%= value.category %></option>
-            <% }) %>
-        </select></label>
-        <label>Price : <input type="number" name="Price" step="any"></label>
-        <label>Amount of Item : <input type="number" name="Quanity" min="0"/></label>
-        <label>Status : <select name="Product_status">
-            <option value="In Stock">Avalible in stock</option>
-            <option value="Out of Stock">Out of Stock</option>
-            <option value="Off Sale">Off Sale</option>
-        </select></label>
+
+        <input type="hidden" name="Product_ID" value="<%= data[0].id %>">
+        <label>
+            Product Name:
+            <input type="text" name="ProductName" value="<%= data[0].itemname %>" required />
+        </label>
+
+        <br><br>
+
+        <label>
+            Description:
+            <textarea name="Description" required><%= data[0].description %></textarea>
+        </label>
+
+        <br><br>
+
+        <label>
+            Category:
+            <select name="Category" required>
+                <% category.forEach((value)=> { %>
+                    <option value="<%= value.category %>" <%=value.category===data[0].category ? "selected" : "" %>>
+                        <%= value.category %>
+                    </option>
+                    <% }) %>
+            </select>
+        </label>
+
+        <br><br>
+
+        <label>
+            Price:
+            <input type="number" name="Price" step="any" value="<%= data[0].price %>" required />
+        </label>
+
+        <br><br>
+
+        <label>
+            Amount of Item:
+            <input type="number" name="Quantity" min="0" value="<%= data[0].quantity %>" required />
+        </label>
+
+        <br><br>
+
+        <label>
+            Status:
+            <select name="Product_status" required>
+                <option value="In Stock" <%=data[0].product_status==="In Stock" ? "selected" : "" %>>
+                    Available in stock
+                </option>
+
+                <option value="Out of Stock" <%=data[0].product_status==="Out of Stock" ? "selected" : "" %>>
+                    Out of Stock
+                </option>
+
+                <option value="Off Sale" <%=data[0].product_status==="Off Sale" ? "selected" : "" %>>
+                    Off Sale
+                </option>
+            </select>
+        </label>
+
+        <br><br>
+
         <input type="submit" value="Submit">
+
     </form>
 </body>
+
 </html>

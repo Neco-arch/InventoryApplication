@@ -16,11 +16,13 @@ app.set("views", path.join(__dirname, "views"));
 app.get('/', (req, res) => {
     res.redirect('/category')
 })
-
+//Category Part
 app.get('/category', (req, res) => {
-    controller.Rendermainpage(res)
+    controller.Rendermainpage(req,res)
 })
 
+
+//Product Part
 app.get('/addproduct' , (req,res) => {
     controller.RenderAddProductPage(res)
 })
@@ -37,7 +39,13 @@ app.post('/addproducttodb' , (req,res) => {
     controller.AddProductviaForm(req,res)
 })
 
+app.post('/editproduct' , (req,res) => {
+    controller.RenderEditPage(req,res)
+})
 
+app.post('/editdata' , (req,res) => {
+    controller.EditDataform(req,res)
+})
 
 app.listen(3000, () => {
     console.log("Server lunched")

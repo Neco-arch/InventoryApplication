@@ -13,8 +13,8 @@ async function CreateProduct(
   const ProductData = await queries.GetData();
 
   //Checking Data
-  const CheckDupe = ProductData.some((value, index) => {
-    value.itemname === itemname ? true : false;
+  const CheckDupe = ProductData.some((value) => {
+    return value.itemname === itemname;
   });
 
   if (CheckDupe === true) {
@@ -42,7 +42,7 @@ async function EditProduct(
   newquantity,
   newstatus,
 ) {
-  if ((newcategory = null)) {
+  if ((newcategory === null)) {
     newcategory = "none";
   }
   const result = await queries.UpdateData(
@@ -65,8 +65,6 @@ async function DeleteProduct(ItemID, Itemname) {
 
 //Delete Category
 
-
-
 //Add Product page
 function RenderAddProductPage(res) {
   queries.GetDataFromCategory().then((value) => {
@@ -74,52 +72,89 @@ function RenderAddProductPage(res) {
   });
 }
 
-
 // Each Category Page
-function Rendermainpage(res) {
-  queries.GetDataFromCategory().then((value) => {
-    res.render("category/category_page", { category: value });
-  });
+async function Rendermainpage(req,res) {
+  try {
+    const categories = await queries.GetDataFromCategory();
+
+    console.log(categories)
+
+    res.render("category/category_page", {
+      category : categories
+    });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 // Add ProductPage
 async function AddProductviaForm(req, res) {
-  console.log(req.body);
+  const data = req.body
   await queries.InsertData(
-    req.ProductName,
-    req.Description,
-    req.Category,
-    req.Price,
-    req.Quanity,
-    req.Product_status,
+    data.ProductName,
+    data.Description,
+    data.Category,
+    data.Price,
+    data.Quantity,
+    data.Product_status,
   );
   res.redirect("/");
 }
 
 //Category Page
 
-async function RenderCategory(req,res) {
-    const type = req.params.category_type
-    const result = await queries.filterData(type) 
-    res.render("category/category_product" , {products : result })
+async function RenderCategory(req, res) {
+  const type = req.params.category_type;
+  const result = await queries.filterData(type);
+  res.render("category/category_product", { products: result });
 }
 
 // Product Page Action page
 
-function RenderProductAction(req,res) {
-  const Productid = req.body.productId
-  queries.filterData(null,null,null,Productid).then((value) => {
-    res.render('product/productpage' , {product : value})
-  })
+function RenderProductAction(req, res) {
+  const Productid = req.body.productId;
+  queries.filterData(null, null, null, Productid).then((value) => {
+    res.render("product/productpage", { product: value });
+  });
 }
 
-function RenderProductEdit(req,res) {
-  res.render("/Edit/editproduct" , {data : })
+// Product Edit Page
+async function RenderEditPage(req, res) {
+  try {
+    const ProductID = req.body.product_ID;
+    const value = await queries.filterData(null, null, null, ProductID);
+    const categories = await queries.GetDataFromCategory();
+
+    res.render("Edit/editproduct", { category: categories, data: value });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
+async function EditDataform(req, res) {
+  try {
+    const NewData = req.body;
 
+    await queries.UpdateData(
+      NewData.Product_ID,
+      NewData.ProductName,
+      NewData.Description,
+      NewData.Category,
+      NewData.Price,
+      NewData.Quantity,
+      NewData.Product_status,
+    );
+    console.log("Update Data Successfully");
+  } catch (err) {
+    console.error(err);
+  }
+
+   res.redirect("/category");
+}
 
 module.exports = {
+  EditDataform,
+  RenderEditPage,
   RenderProductAction,
   RenderCategory,
   AddProductviaForm,
