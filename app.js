@@ -6,12 +6,24 @@ const controller = require('./controller/controller.js')
 
 const app = express()
 
+// =========================
+// Inital Part
+// =========================
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.json())
 
 app.set("view engine", "ejs");
 
 app.set("views", path.join(__dirname, "views"));
+
+
+// =========================
+// Category Part
+// =========================
+
 
 app.get('/', (req, res) => {
     res.redirect('/category')
@@ -21,8 +33,20 @@ app.get('/category', (req, res) => {
     controller.Rendermainpage(req,res)
 })
 
+app.post('/addcategory' , (req,res) => {
+    controller.CreateCategory(req,res)
+})
 
-//Product Part
+app.post('/deletecategory' , (req,res) => {
+    controller.DeleteCategory(req,res)
+})
+
+
+// =========================
+// Product Part
+// =========================
+
+
 app.get('/addproduct' , (req,res) => {
     controller.RenderAddProductPage(res)
 })
@@ -46,6 +70,8 @@ app.post('/editproduct' , (req,res) => {
 app.post('/editdata' , (req,res) => {
     controller.EditDataform(req,res)
 })
+
+
 
 app.listen(3000, () => {
     console.log("Server lunched")

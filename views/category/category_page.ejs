@@ -10,6 +10,8 @@
 <body>
     <div>
         <h1>Category Page</h1>
+        <button type="Submit" id="AddCategory">Add New Category</button>
+        <button type="submit" id="Deletecategory">Delete Category</button>
         <% category.forEach((value, index)=> { %>
             <a href="/category/<%= value.category %>">
                 <div class="Category_Card">
@@ -19,10 +21,32 @@
                     </h2>
                 </div>
             </a>
-
             <% }) %>
     </div>
+    <script>
+        document.querySelector("#AddCategory").addEventListener("click", () => {
+            const Category = prompt("Category Name:")
 
+            fetch("/addcategory", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ Category: Category })
+            })
+        })
+
+        document.querySelector("#Deletecategory").addEventListener("click" , () => {
+            const Category = prompt("Category Name you want to delete :")
+            fetch("/deletecategory" , {
+                method : "POST" , 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({Category})
+            })
+        })
+    </script>
 </body>
 
 </html>

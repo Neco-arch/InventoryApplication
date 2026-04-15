@@ -1,6 +1,9 @@
-const { render } = require("ejs");
 const queries = require("../db/queries.js");
 
+
+// =========================
+// Product Page
+// =========================
 //CreateProduct
 async function CreateProduct(
   itemname,
@@ -42,7 +45,7 @@ async function EditProduct(
   newquantity,
   newstatus,
 ) {
-  if ((newcategory === null)) {
+  if (newcategory === null) {
     newcategory = "none";
   }
   const result = await queries.UpdateData(
@@ -63,8 +66,6 @@ async function DeleteProduct(ItemID, Itemname) {
   return result;
 }
 
-//Delete Category
-
 //Add Product page
 function RenderAddProductPage(res) {
   queries.GetDataFromCategory().then((value) => {
@@ -73,14 +74,14 @@ function RenderAddProductPage(res) {
 }
 
 // Each Category Page
-async function Rendermainpage(req,res) {
+async function Rendermainpage(req, res) {
   try {
     const categories = await queries.GetDataFromCategory();
 
-    console.log(categories)
+    console.log(categories);
 
     res.render("category/category_page", {
-      category : categories
+      category: categories,
     });
   } catch (err) {
     console.error(err);
@@ -89,7 +90,7 @@ async function Rendermainpage(req,res) {
 
 // Add ProductPage
 async function AddProductviaForm(req, res) {
-  const data = req.body
+  const data = req.body;
   await queries.InsertData(
     data.ProductName,
     data.Description,
@@ -101,7 +102,9 @@ async function AddProductviaForm(req, res) {
   res.redirect("/");
 }
 
-//Category Page
+// =========================
+// Category Page
+// =========================
 
 async function RenderCategory(req, res) {
   const type = req.params.category_type;
@@ -109,7 +112,24 @@ async function RenderCategory(req, res) {
   res.render("category/category_product", { products: result });
 }
 
-// Product Page Action page
+function CreateCategory(req,res) {
+  const CategoryName = req.body.Category
+  queries.CreateCategory(CategoryName).then(() => {
+    console.log("Create New Category Succesfully")
+  })
+}
+
+
+async function DeleteCategory(req,res) {
+  const CategoryName = req.body.Category
+  await queries.DeleteCategory(CategoryName)
+  await queries.DeleteData(null,null,CategoryName)
+}
+
+// =========================
+// Render Page
+// =========================
+  
 
 function RenderProductAction(req, res) {
   const Productid = req.body.productId;
@@ -149,10 +169,12 @@ async function EditDataform(req, res) {
     console.error(err);
   }
 
-   res.redirect("/category");
+  res.redirect("/category");
 }
 
 module.exports = {
+  DeleteCategory,
+  CreateCategory,
   EditDataform,
   RenderEditPage,
   RenderProductAction,

@@ -12,11 +12,9 @@ async function InsertData(
   const querymessage =
     "INSERT INTO products(itemname, description,category,price,quantity,status) VALUES($1, $2 , $3 , $4 , $5 , $6)";
   const value = [itemname, description, category, price, quantity, status];
-  const querymessage_2 = "INSERT INTO allcategory(category) VALUES($1)";
   const result1 = await pool.query(querymessage, value);
-  const result2 = await pool.query(querymessage_2, category);
 
-  return [result1, result2];
+  return result1;
 }
 
 async function GetAllData() {
@@ -29,11 +27,11 @@ async function GetAllData() {
   }
 }
 
-async function filterData(category, price, status , id) {
+async function filterData(category, price, status, id) {
   try {
     const { rows } = await pool.query(
       "SELECT * FROM products WHERE category = ($1) OR price = ($2) OR status = ($3) OR id = ($4) ",
-      [category,price,status,id]
+      [category, price, status, id],
     );
     return rows;
   } catch (err) {
@@ -71,11 +69,11 @@ async function UpdateData(
   }
 }
 
-async function DeleteData(id, itemname) {
+async function DeleteData(id, itemname,category) {
   try {
     const result = await pool.query(
-      "DELETE FROM products WHERE id = ($1) OR itemname = ($2)",
-      [id, itemname],
+      "DELETE FROM products WHERE id = ($1) OR itemname = ($2) category = ($3)",
+      [id, itemname , category],
     );
     return result;
   } catch (err) {
@@ -84,20 +82,32 @@ async function DeleteData(id, itemname) {
   }
 }
 
-
-// Category Part 
+// Category Part
 
 async function GetDataFromCategory() {
-    const querymessage = 'SELECT * FROM allcategory'
-    const { rows } = await pool.query(querymessage)
-    return rows
+  const querymessage = "SELECT * FROM allcategory";
+  const { rows } = await pool.query(querymessage);
+  return rows;
 }
 
-async function DeleteCategory() {
-  
+async function CreateCategory(newcategory) {
+  try {
+    const querymessage = "INSERT INTO allcategory(category) VALUES($1)";
+    return await pool.query(querymessage, [newcategory]);
+  } catch (err) {
+    console.log(err);
+  }
 }
+
+async function DeleteCategory(categoryName) {
+  const querymessage = "DELETE FROM products WHERE category = ($1)";
+  return await pool.query(querymessage,[categoryName])
+}
+
 
 module.exports = {
+  CreateCategory,
+  DeleteCategory,
   InsertData,
   GetAllData,
   filterData,
