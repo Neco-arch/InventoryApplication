@@ -100,7 +100,7 @@ async function CreateCategory(newcategory) {
 }
 
 async function DeleteCategory(categoryName) {
-  const querymessage = "DELETE FROM products WHERE category = ($1)";
+  const querymessage = "DELETE FROM allcategory WHERE category = ($1)";
   return await pool.query(querymessage,[categoryName])
 }
 

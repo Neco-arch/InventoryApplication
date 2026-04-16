@@ -5,45 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Pulse</title>
+    <link rel="stylesheet" href="/css/mainstyle.css" type="text/css">
 </head>
 
 <body>
     <div>
+        <div class="Top_Part">
         <h1>Category Page</h1>
+        <div>
         <button type="Submit" id="AddCategory">Add New Category</button>
         <button type="submit" id="Deletecategory">Delete Category</button>
-        <% category.forEach((value, index)=> { %>
-            <a href="/category/<%= value.category %>">
-                <div class="Category_Card">
-                    <img src="/images.png">
-                    <h2>
-                        <%= value.category %>
-                    </h2>
-                </div>
-            </a>
-            <% }) %>
+        </div>
+        </div>
+        <div class="Wrapper">
+            <% category.forEach((value, index)=> { %>
+                <a href="/category/<%= value.category %>">
+                    <div class="Category_Card">
+                        <img src="/images.png">
+                        <h2>
+                            <%= value.category %>
+                        </h2>
+                    </div>
+                </a>
+                <% }) %>
+        </div>
     </div>
+
     <script>
         document.querySelector("#AddCategory").addEventListener("click", () => {
             const Category = prompt("Category Name:")
 
-            fetch("/addcategory", {
+            const response = fetch("/addcategory", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ Category: Category })
             })
+
+            response.then((value) => {
+                if (value.ok) {
+                    window.location.href = "/"
+                }
+            })
         })
 
-        document.querySelector("#Deletecategory").addEventListener("click" , () => {
+        document.querySelector("#Deletecategory").addEventListener("click", () => {
             const Category = prompt("Category Name you want to delete :")
-            fetch("/deletecategory" , {
-                method : "POST" , 
+            const response = fetch("/deletecategory", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body : JSON.stringify({Category})
+                body: JSON.stringify({ Category })
+            })
+
+            response.then((value) => {
+                if (value.ok) {
+                    window.location.href = "/"
+                }
             })
         })
     </script>

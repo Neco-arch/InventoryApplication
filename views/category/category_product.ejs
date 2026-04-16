@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Pulse</title>
+    <link rel="stylesheet" href="/css/categoryspecificpage.css" type="text/css">
 </head>
 
 <body>
+    <form action="/addproduct" method="get" class="AddProduct">
+        <button type="submit" value="AddProduct">AddProduct</button>
+    </form>
     <div>
         <% if (products.length === 0) { %>
             <h2>No Product in category</h2>
             <% } %>
                 <% products.forEach((value, index)=> { %>
-                    <div class="Prodcut">
+                    <div class="Product">
                         <img src="/images.png">
-                        <h2>
+                        <div class="Product_Detail">
+                            <h2>
                             <%= value.itemname %>
                         </h2>
                         <h3>
@@ -30,8 +35,9 @@
                         </h3>
                         <form method="post" action="/viewproduct">
                             <input type="hidden" name="productId" value="<%= value.id %>">
-                            <input type="submit" value="Action">
+                            <input type="submit" value="Action" class="submitButton">
                         </form>
+                        </div>
                     </div>
                     <% }) %>
     </div>

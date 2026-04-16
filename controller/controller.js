@@ -82,7 +82,7 @@ async function DeleteProduct(req,res) {
 //Add Product page
 function RenderAddProductPage(res) {
   queries.GetDataFromCategory().then((value) => {
-    res.render("create_adddataform", { category: value });
+    res.render("Edit/create_adddataform", { category: value });
   });
 }
 
@@ -90,9 +90,6 @@ function RenderAddProductPage(res) {
 async function Rendermainpage(req, res) {
   try {
     const categories = await queries.GetDataFromCategory();
-
-    console.log(categories);
-
     res.render("category/category_page", {
       category: categories,
     });
@@ -130,13 +127,15 @@ function CreateCategory(req,res) {
   queries.CreateCategory(CategoryName).then(() => {
     console.log("Create New Category Succesfully")
   })
+  res.redirect("/")
 }
 
 
 async function DeleteCategory(req,res) {
   const CategoryName = req.body.Category
-  await queries.DeleteCategory(CategoryName)
-  await queries.DeleteData(null,null,CategoryName)
+  const result1 = await queries.DeleteCategory(CategoryName);
+  const result2 = await queries.DeleteData(null,null,CategoryName);
+  res.redirect("/")
 }
 
 // =========================

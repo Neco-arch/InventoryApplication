@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Pulse</title>
+    <link rel="stylesheet" href="/css/Product.css" type="text/css">
 </head>
+
 <body>
     <div class="Card">
         <div class="Product">
-                <img src="/images.png">
-                <h2><%= product[0].itemname %></h2>
-                <h3><%= product[0].description %></h3>
-                <h3><%= product[0].price %>$</h3>
-                <h3>Amount of item : <%= product[0].quantity%></h3>
-                <h3>Status : <%= product[0].status%></h3>
-            </div>
+            <img src="/images.png">
+            <div class="Product_Detail">
+            <h2>
+                <%= product[0].itemname %>
+            </h2>
+            <h3>
+                <%= product[0].description %>
+            </h3>
+            <h3>
+                <%= product[0].price %>$
+            </h3>
+            <h3>Amount of item : <%= product[0].quantity%>
+            </h3>
+            <h3>Status : <%= product[0].status%>
+            </h3>
             <form action="/renderdeleteproduct" method="post">
-                <input type="hidden" name="product_ID" value=<%= product[0].id %>>
-                <input type="submit" value="Delete Product">
+                <input type="hidden" name="product_ID" value=<%=product[0].id %>>
+                <input type="submit" value="Delete Product" class="Buttonnn">
             </form>
             <form action="/editproduct" method="post">
-                <input type="hidden" name="product_ID" value=<%= product[0].id %>>
-                <input type="submit" value="Edit Product">
+                <input type="hidden" name="product_ID" value=<%=product[0].id %>>
+                <input type="submit" value="Edit Product" class="Buttonnn">
             </form>
+            </div>
+        </div>
+
     </div>
     <a href="/">Back to homepage</a>
 </body>
+
 </html>

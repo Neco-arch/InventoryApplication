@@ -49,7 +49,7 @@ app.post('/deletecategory' , (req,res) => {
 
 app.get('/addproduct' , (req,res) => {
     controller.RenderAddProductPage(res)
-})
+}) 
 
 app.get('/category/:category_type' , (req,res) => {
     controller.RenderCategory(req,res)

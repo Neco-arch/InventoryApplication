@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+body {
+    background-color: antiquewhite;
+    padding: 2rem;
+}
+
+.Product_Detail {
+    font-size: 1.25rem;
+}
+
+.Product {
+    display: flex;
+}
+
+button {
+    width: 150px;
+    height: 40px;
+}
