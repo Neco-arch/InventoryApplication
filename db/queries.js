@@ -72,8 +72,8 @@ async function UpdateData(
 async function DeleteData(id, itemname,category) {
   try {
     const result = await pool.query(
-      "DELETE FROM products WHERE id = ($1) OR itemname = ($2) category = ($3)",
-      [id, itemname , category],
+      "DELETE FROM products WHERE id = ($1) OR itemname = ($2) OR category = ($3)",
+      [id, itemname , category]
     );
     return result;
   } catch (err) {

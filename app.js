@@ -71,6 +71,13 @@ app.post('/editdata' , (req,res) => {
     controller.EditDataform(req,res)
 })
 
+app.post('/renderdeleteproduct' , (req,res) => {
+    controller.RenderDeletePage(req,res)
+})
+
+app.post('/deleteproduct' , (req,res) => {
+    controller.DeleteProduct(req,res)
+})
 
 
 app.listen(3000, () => {

@@ -60,10 +60,23 @@ async function EditProduct(
   return result;
 }
 
+// =========================
+// Delete Product
+// =========================
+
+
+// RenderDeletePage 
+async function RenderDeletePage(req,res) {
+  res.render("Edit/confirmdelete" , {ID : req.body.product_ID })
+}
+
+
 //Delete Product
-async function DeleteProduct(ItemID, Itemname) {
-  const result = await queries.DeleteData(ItemID, Itemname);
-  return result;
+async function DeleteProduct(req,res) {
+  const ProductID = req.body.Product_ID;
+  const result = await queries.DeleteData(ProductID,null,null);
+  res.redirect("/")
+  return result
 }
 
 //Add Product page
@@ -173,6 +186,7 @@ async function EditDataform(req, res) {
 }
 
 module.exports = {
+  RenderDeletePage,
   DeleteCategory,
   CreateCategory,
   EditDataform,

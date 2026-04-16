@@ -6,6 +6,10 @@
     <title>Urban Pulse</title>
 </head>
 <body>
-    
+    <h2>Are you sure to delete</h2>
+    <form action="/deleteproduct" method="post">
+        <input type="hidden" value="<%= ID %>" name="Product_ID">
+        <input type="submit" >
+    </form>
 </body>
 </html>

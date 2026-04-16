@@ -15,7 +15,7 @@
                 <h3>Amount of item : <%= product[0].quantity%></h3>
                 <h3>Status : <%= product[0].status%></h3>
             </div>
-            <form action="/deleteproduct" method="post">
+            <form action="/renderdeleteproduct" method="post">
                 <input type="hidden" name="product_ID" value=<%= product[0].id %>>
                 <input type="submit" value="Delete Product">
             </form>
