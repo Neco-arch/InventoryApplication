@@ -66,15 +66,15 @@ async function EditProduct(
 
 
 // RenderDeletePage 
-async function RenderDeletePage(req,res) {
-  res.render("Edit/confirmdelete" , {ID : req.body.product_ID })
+async function RenderDeletePage(req, res) {
+  res.render("Edit/confirmdelete", { ID: req.body.product_ID })
 }
 
 
 //Delete Product
-async function DeleteProduct(req,res) {
+async function DeleteProduct(req, res) {
   const ProductID = req.body.Product_ID;
-  const result = await queries.DeleteData(ProductID,null,null);
+  const result = await queries.DeleteData(ProductID, null, null);
   res.redirect("/")
   return result
 }
@@ -122,26 +122,29 @@ async function RenderCategory(req, res) {
   res.render("category/category_product", { products: result });
 }
 
-function CreateCategory(req,res) {
+async function CreateCategory(req, res) {
+  const CatData = await queries.GetDataFromCategory()
   const CategoryName = req.body.Category
-  queries.CreateCategory(CategoryName).then(() => {
-    console.log("Create New Category Succesfully")
-  })
+  if (!CatData.includes(CatData)) {
+    await queries.CreateCategory(CategoryName)
+    console.log("Category name has been added")
+  }
+  return "Error Category name already exist"
   res.redirect("/")
 }
 
 
-async function DeleteCategory(req,res) {
+async function DeleteCategory(req, res) {
   const CategoryName = req.body.Category
   const result1 = await queries.DeleteCategory(CategoryName);
-  const result2 = await queries.DeleteData(null,null,CategoryName);
+  const result2 = await queries.DeleteData(null, null, CategoryName);
   res.redirect("/")
 }
 
 // =========================
 // Render Page
 // =========================
-  
+
 
 function RenderProductAction(req, res) {
   const Productid = req.body.productId;

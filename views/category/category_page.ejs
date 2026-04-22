@@ -9,27 +9,28 @@
 </head>
 
 <body>
-    <div>
-        <div class="Top_Part">
+<div>
+    <div class="Top_Part">
         <h1>Category Page</h1>
         <div>
-        <button type="Submit" id="AddCategory">Add New Category</button>
-        <button type="submit" id="Deletecategory">Delete Category</button>
-        </div>
-        </div>
-        <div class="Wrapper">
-            <% category.forEach((value, index)=> { %>
-                <a href="/category/<%= value.category %>">
-                    <div class="Category_Card">
-                        <img src="/images.png">
-                        <h2>
-                            <%= value.category %>
-                        </h2>
-                    </div>
-                </a>
-                <% }) %>
+            <button type="submit" id="AddCategory">Add New Category</button>
+            <button type="submit" id="Deletecategory">Delete Category</button>
         </div>
     </div>
+    <div class="Wrapper">
+        <% if (category.length === 0) { %>
+            <h1>No category found</h1>
+        <% } %>
+        <% category.forEach((value, index) => { %>
+            <a href="/category/<%= value.category %>">
+                <div class="Category_Card">
+                    <img src="/images.png">
+                    <h2><%= value.category %></h2>
+                </div>
+            </a>
+        <% }) %>
+    </div>
+</div>
 
     <script>
         document.querySelector("#AddCategory").addEventListener("click", () => {
